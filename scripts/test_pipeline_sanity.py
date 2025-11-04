@@ -8,6 +8,41 @@ warnings.filterwarnings('ignore', category=FutureWarning)
 warnings.filterwarnings('ignore', category=UserWarning, module='sklearn')
 
 
+# Experimental data from the baseline sorption paper (ground truth)
+BASELINE_EXPERIMENTAL_DATA = [
+    {'rh': 20, 'solar': 5.00, 'water': 2.5},
+    {'rh': 30, 'solar': 5.00, 'water': 3.0},
+    {'rh': 40, 'solar': 5.00, 'water': 3.5},
+    {'rh': 50, 'solar': 5.00, 'water': 4.0},
+    {'rh': 60, 'solar': 5.00, 'water': 4.0},
+    {'rh': 70, 'solar': 5.00, 'water': 4.5},
+    {'rh': 20, 'solar': 5.41, 'water': 3.0},
+    {'rh': 30, 'solar': 5.41, 'water': 3.5},
+    {'rh': 40, 'solar': 5.41, 'water': 4.0},
+    {'rh': 50, 'solar': 5.41, 'water': 4.0},
+    {'rh': 60, 'solar': 5.41, 'water': 4.5},
+    {'rh': 70, 'solar': 5.41, 'water': 5.0},
+    {'rh': 20, 'solar': 5.83, 'water': 3.0},
+    {'rh': 30, 'solar': 5.83, 'water': 3.5},
+    {'rh': 40, 'solar': 5.83, 'water': 4.0},
+    {'rh': 50, 'solar': 5.83, 'water': 4.5},
+    {'rh': 60, 'solar': 5.83, 'water': 5.0},
+    {'rh': 70, 'solar': 5.83, 'water': 5.5},
+    {'rh': 20, 'solar': 6.25, 'water': 3.0},
+    {'rh': 30, 'solar': 6.25, 'water': 4.0},
+    {'rh': 40, 'solar': 6.25, 'water': 4.5},
+    {'rh': 50, 'solar': 6.25, 'water': 5.0},
+    {'rh': 60, 'solar': 6.25, 'water': 5.5},
+    {'rh': 70, 'solar': 6.25, 'water': 6.0},
+    {'rh': 20, 'solar': 6.66, 'water': 3.5},
+    {'rh': 30, 'solar': 6.66, 'water': 4.0},
+    {'rh': 40, 'solar': 6.66, 'water': 5.0},
+    {'rh': 50, 'solar': 6.66, 'water': 5.5},
+    {'rh': 60, 'solar': 6.66, 'water': 6.0},
+    {'rh': 70, 'solar': 6.66, 'water': 6.0},
+]
+
+
 TEST_SCENARIOS = [
     # Summer - sunny days
     {'date': '2024-06-21', 'cloud': 0.0, 'temp': 28.0, 'rh': 55.0, 'desc': 'Summer solstice - clear'},
@@ -146,6 +181,97 @@ def run_sanity_check():
         else:
             print(f"[WARN] Weak humidity-water correlation: r={corr:.2f}")
     
+    # Compare against experimental baseline data
+    print("\n" + "=" * 80)
+    print("COMPARISON WITH EXPERIMENTAL DATA")
+    print("=" * 80)
+    
+    # Find pipeline outputs that are close to experimental conditions
+    baseline_df = pd.DataFrame(BASELINE_EXPERIMENTAL_DATA)
+    comparisons = []
+    
+    for _, exp in baseline_df.iterrows():
+        # Find pipeline outputs with similar solar energy (±1 kWh/m²) and RH (±10%)
+        similar = valid_results[
+            (abs(valid_results['Solar (kWh/m²)'].astype(float) - exp['solar']) < 1.0) &
+            (abs(valid_results['RH (%)'] - exp['rh']) < 10)
+        ]
+        
+        if len(similar) > 0:
+            pipeline_water = similar.iloc[0]['Water (L/day)']
+            exp_water = exp['water']
+            error = abs(pipeline_water - exp_water)
+            pct_error = (error / exp_water) * 100
+            
+            comparisons.append({
+                'Exp_Solar': exp['solar'],
+                'Exp_RH': exp['rh'],
+                'Exp_Water': exp_water,
+                'Pipeline_Solar': similar.iloc[0]['Solar (kWh/m²)'],
+                'Pipeline_RH': similar.iloc[0]['RH (%)'],
+                'Pipeline_Water': pipeline_water,
+                'Error': round(error, 2),
+                'Error_%': round(pct_error, 1)
+            })
+    
+    if len(comparisons) > 0:
+        comp_df = pd.DataFrame(comparisons)
+        print("\nMatching conditions found:")
+        print(comp_df.to_string(index=False))
+        
+        avg_error = comp_df['Error'].mean()
+        avg_pct_error = comp_df['Error_%'].mean()
+        
+        print(f"\nAverage absolute error: {avg_error:.2f} L/day")
+        print(f"Average percentage error: {avg_pct_error:.1f}%")
+        
+        if avg_pct_error < 20:
+            print("[PASS] Pipeline predictions align well with experimental data (<20% error)")
+        elif avg_pct_error < 30:
+            print("[WARN] Moderate deviation from experimental data (20-30% error)")
+        else:
+            print("[FAIL] Large deviation from experimental data (>30% error)")
+    else:
+        print("[INFO] No direct matches with experimental conditions for comparison")
+        print("       Experimental range: Solar 5-6.7 kWh/m², RH 20-70%")
+    
+    # Additional check: Test a specific experimental condition
+    print("\n" + "=" * 80)
+    print("SPOT CHECK: Simulate Experimental Condition")
+    print("=" * 80)
+    
+    # Pick mid-range experimental point: 5.83 kWh/m², 50% RH → should give ~4.5 L/day
+    test_solar_target = 5.83
+    test_rh = 50
+    expected_water = 4.5
+    
+    # Find which Toronto date gives closest to 5.83 kWh/m²
+    best_match = None
+    best_diff = float('inf')
+    
+    for _, row in valid_results.iterrows():
+        solar_diff = abs(row['Solar (kWh/m²)'] - test_solar_target)
+        if solar_diff < best_diff and abs(row['RH (%)'] - test_rh) < 15:
+            best_diff = solar_diff
+            best_match = row
+    
+    if best_match is not None:
+        print(f"\nExperimental: Solar={test_solar_target} kWh/m², RH={test_rh}% → {expected_water} L/day")
+        print(f"Closest pipeline: Solar={best_match['Solar (kWh/m²)']} kWh/m², RH={best_match['RH (%)']}% → {best_match['Water (L/day)']} L/day")
+        print(f"Date: {best_match['Date']} ({best_match['Description']})")
+        
+        water_error = abs(best_match['Water (L/day)'] - expected_water)
+        pct_error = (water_error / expected_water) * 100
+        
+        print(f"Water yield error: {water_error:.2f} L/day ({pct_error:.1f}%)")
+        
+        if pct_error < 15:
+            print("[PASS] Pipeline prediction matches experimental result closely")
+        elif pct_error < 25:
+            print("[WARN] Pipeline prediction has moderate deviation from experimental")
+        else:
+            print("[FAIL] Pipeline prediction differs significantly from experimental")
+    
     print("\n" + "=" * 80)
     print("SUMMARY")
     print("=" * 80)
@@ -153,10 +279,17 @@ def run_sanity_check():
     print(f"Solar energy range: {solar_values.min():.2f} - {solar_values.max():.2f} kWh/m²")
     print(f"Water yield range: {water_values.min():.2f} - {water_values.max():.2f} L/day")
     
+    if len(comparisons) > 0:
+        print(f"Experimental comparison: {len(comparisons)} matches, avg error {avg_pct_error:.1f}%")
+    
     # Overall assessment
     if (solar_values >= 0).all() and (water_values >= 0).all():
         if summer_solar > winter_solar * 1.5 and solar_values.max() < 9.5:
-            print("\nRESULT: Pipeline outputs are physically reasonable for Toronto.")
+            if len(comparisons) > 0 and avg_pct_error < 25:
+                print("\nRESULT: Pipeline is validated. Outputs match experimental data and are")
+                print("        physically reasonable for Toronto conditions.")
+            else:
+                print("\nRESULT: Pipeline appears reasonable but limited experimental validation.")
         else:
             print("\nRESULT: Pipeline runs but review seasonal trends.")
     else:
