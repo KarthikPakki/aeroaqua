@@ -12,7 +12,7 @@ DEFAULT_TZ = 'America/Toronto'
 
 def get_solar_positions_for_date(
     date_str: str = '2025-11-04',
-    freq: str = '10T',
+    freq: str = '10min',  # Changed from '10T' to '10min'
     latitude: float = DEFAULT_LATITUDE,
     longitude: float = DEFAULT_LONGITUDE,
     altitude: float = DEFAULT_ALTITUDE,
@@ -22,7 +22,7 @@ def get_solar_positions_for_date(
 
     Args:
         date_str: date string in 'YYYY-MM-DD' format.
-        freq: pandas frequency string, e.g. '10T'.
+        freq: pandas frequency string, e.g. '10min'.
         latitude, longitude, altitude, timezone: location parameters.
 
     Returns:

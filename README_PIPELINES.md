@@ -13,16 +13,30 @@ This pipeline uses pvlib clearsky GHI integrated over the day to compute kWh/m^2
 
 2) RandomForest pipeline (data-driven GHI predictor)
 
-- Training script: `solarenergy/train_rf_model.py`
+- Training script: `model/train_rf_model.py`
+- Evaluation script: `model/evaluate_rf_model.py`
 - Pipeline: `pipeline_rf.py`
 
-Training:
+Training with cross-validation:
 
 ```powershell
-python -m solarenergy.train_rf_model --csv path\to\usaWithWeather.csv
+python -m aeroaqua.model.train_rf_model --csv path\to\usaWithWeather.csv --cv-folds 5 --test-size 0.2
 ```
 
-This will save `solarenergy/solar_predictor_model.joblib` by default.
+This will:
+- Split data into train/test sets (80/20 by default)
+- Perform 5-fold cross-validation on training set
+- Evaluate on held-out test set
+- Report RMSE, MAE, R², and feature importances
+- Save model to `model/solar_predictor_model.joblib`
+
+Evaluate trained model on new data:
+
+```powershell
+python -m aeroaqua.model.evaluate_rf_model --model path\to\model.joblib --csv path\to\test_data.csv --output-dir evaluation_results
+```
+
+This will generate evaluation metrics and save diagnostic plots (predicted vs actual, residuals).
 
 Run the RF pipeline after training:
 
@@ -30,10 +44,17 @@ Run the RF pipeline after training:
 python -c "from pipeline_rf import run_pipeline_rf; print(run_pipeline_rf('2025-11-04', cloud_type=0, rh_percent=50.0, temperature_c=20.0))"
 ```
 
+Or use the CLI wrapper:
+
+```powershell
+python -m aeroaqua.scripts.run_rf --date 2025-11-04 --cloud 0.0 --rh 50.0 --temp 20.0 --model path\to\model.joblib
+```
+
 Notes and assumptions
 - `baselinesorption.predict_water_yield(solar_energy_kwh_m2, rh_percent)` is used for both pipelines.
-- The RF pipeline expects a trained model stored at `solarenergy/solar_predictor_model.joblib` (or pass `model_path` to `run_pipeline_rf`).
-- If you want per-sample RH/Temperature inputs for the RF pipeline, the pipeline can be extended to accept time-series arrays; the current implementation broadcasts scalar values across all timesteps.
+- The RF pipeline expects a trained model stored at `model/solar_predictor_model.joblib` (or pass `model_path`).
+- Cross-validation helps assess model generalization before deployment.
+- Test set evaluation provides unbiased performance estimates.
 
 Requirements
 - Install dependencies from `requirements.txt`.

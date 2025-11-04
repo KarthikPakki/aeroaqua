@@ -28,7 +28,7 @@ def run_pipeline_rf(
     rh_percent: float = 50.0,
     temperature_c: float = 20.0,
     model_path: str = None,
-    freq: str = '10T',
+    freq: str = '10min',  # Changed from '10T' to '10min'
     latitude: float = DEFAULT_LATITUDE,
     longitude: float = DEFAULT_LONGITUDE,
     altitude: float = DEFAULT_ALTITUDE,

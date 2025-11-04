@@ -68,7 +68,7 @@ def predict_water_yield(solar_energy_kwh_m2: float, rh_percent: float) -> float:
     Returns:
         Predicted liters per day (float)
     """
-    X_pred = [[rh_percent, solar_energy_kwh_m2]]
+    X_pred = pd.DataFrame([[rh_percent, solar_energy_kwh_m2]], columns=['RH_Percent', 'Solar_Energy_kWhr_m2'])
     pred = _model.predict(X_pred)[0]
     return float(pred)
 
