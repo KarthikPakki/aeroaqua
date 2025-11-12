@@ -100,3 +100,5 @@ if __name__ == '__main__':
         print(e)
         print('\nTo train a model:')
         print('python -m aeroaqua.model.train_rf_model --csv path/to/usaWithWeather.csv')
+
+__all__ = ['run_pipeline_rf', '_find_model']

@@ -50,6 +50,21 @@ Or use the CLI wrapper:
 python -m aeroaqua.scripts.run_rf --date 2025-11-04 --cloud 0.0 --rh 50.0 --temp 20.0 --model path\to\model.joblib
 ```
 
+## Validation
+
+Validate trained RF model against Open-Meteo ground truth data:
+
+```powershell
+python -m aeroaqua.scripts.validate_openmeteo --start 2024-06-01 --end 2024-06-07 --model path\to\model.joblib
+```
+
+This will:
+- Fetch hourly weather and GHI data from Open-Meteo API
+- Use the same feature engineering as the pipeline
+- Compare model predictions against actual GHI measurements
+- Report R², RMSE, MAE, and MAPE metrics
+- Generate scatter plot and residual plot
+
 Notes and assumptions
 - `baselinesorption.predict_water_yield(solar_energy_kwh_m2, rh_percent)` is used for both pipelines.
 - The RF pipeline expects a trained model stored at `model/solar_predictor_model.joblib` (or pass `model_path`).

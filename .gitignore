@@ -1,0 +1,30 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# VS Code
+.vscode/
+
+# Temporary validation outputs
+openmeteo_fetched_data.csv
+openmeteo_validation.png
+
+# Model files (optional - uncomment if you don't want to track models)
+# *.joblib
+
+# Data files (optional - uncomment if data is large)
+# *.csv
+
+# OS files
+.DS_Store
+Thumbs.db
