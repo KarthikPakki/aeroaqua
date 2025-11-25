@@ -118,7 +118,8 @@ def generate_shap_report(model_path: str, csv_path: str, output_dir: str,
     print("1. Creating feature importance bar plot...")
     plt.figure(figsize=(10, 6))
     shap.summary_plot(shap_values, X_sample, plot_type="bar", show=False)
-    plt.title("SHAP Feature Importance (Global)\nAverage impact on model output", fontsize=14, pad=20)
+    plt.title("SHAP Feature Importance - GLOBAL ANALYSIS\nAverage impact on model output across all predictions", 
+              fontsize=14, fontweight='bold', pad=20)
     plt.tight_layout()
     plt.savefig(os.path.join(output_dir, '1_shap_feature_importance.png'), dpi=150, bbox_inches='tight')
     plt.close()
@@ -127,8 +128,8 @@ def generate_shap_report(model_path: str, csv_path: str, output_dir: str,
     print("2. Creating beeswarm summary plot...")
     plt.figure(figsize=(10, 8))
     shap.summary_plot(shap_values, X_sample, show=False)
-    plt.title("SHAP Summary Plot\nFeature impact distribution (red=high feature value, blue=low)", 
-              fontsize=14, pad=20)
+    plt.title("SHAP Summary Plot - GLOBAL ANALYSIS\nFeature impact distribution (red=high feature value, blue=low)", 
+              fontsize=14, fontweight='bold', pad=20)
     plt.tight_layout()
     plt.savefig(os.path.join(output_dir, '2_shap_summary_beeswarm.png'), dpi=150, bbox_inches='tight')
     plt.close()
@@ -161,18 +162,38 @@ def generate_shap_report(model_path: str, csv_path: str, output_dir: str,
         y_sorted_idx[-1]  # Highest GHI
     ][:n_examples]
     
+    # Define units for each feature
+    feature_units = {
+        'Cloud Type': '',
+        'Solar Zenith Angle': '°',
+        'Relative Humidity': '%',
+        'Temperature': '°C',
+        'Month': '',
+        'Day': '',
+        'Hour': ''
+    }
+    
     for i, idx in enumerate(example_indices):
-        plt.figure(figsize=(10, 8))
+        plt.figure(figsize=(12, 8))
+        
+        # Create custom feature names with values and units
+        feature_vals = X_sample.iloc[idx]
+        custom_names = []
+        for feat in feature_names:
+            val = feature_vals[feat]
+            unit = feature_units.get(feat, '')
+            custom_names.append(f"{feat}\n[{val:.1f}{unit}]")
+        
         explanation = shap.Explanation(
             values=shap_values[idx],
             base_values=base_value,
             data=X_sample.iloc[idx].values,
-            feature_names=feature_names
+            feature_names=custom_names
         )
-        shap.waterfall_plot(explanation, show=False)
+        shap.waterfall_plot(explanation, show=False, max_display=10)
         actual_ghi = y_sample.iloc[idx]
-        plt.title(f"SHAP Waterfall Plot - Example {i+1}\nActual GHI: {actual_ghi:.1f} W/m²", 
-                  fontsize=14, pad=20)
+        plt.title(f"SHAP Waterfall Plot - LOCAL EXPLANATION (Example {i+1})\nActual GHI: {actual_ghi:.1f} W/m²", 
+                  fontsize=14, fontweight='bold', pad=20)
         plt.tight_layout()
         plt.savefig(os.path.join(output_dir, f'4_{i+1}_waterfall_example_{i+1}.png'), 
                     dpi=150, bbox_inches='tight')
@@ -190,8 +211,8 @@ def generate_shap_report(model_path: str, csv_path: str, output_dir: str,
     )
     shap.plots.force(explanation, matplotlib=True, show=False)
     actual_ghi = y_sample.iloc[idx]
-    plt.title(f"SHAP Force Plot - Single Prediction\nActual GHI: {actual_ghi:.1f} W/m²", 
-              fontsize=14, pad=20)
+    plt.title(f"SHAP Force Plot - LOCAL EXPLANATION\nActual GHI: {actual_ghi:.1f} W/m²", 
+              fontsize=14, fontweight='bold', pad=20)
     plt.tight_layout()
     plt.savefig(os.path.join(output_dir, '5_shap_force_plot.png'), dpi=150, bbox_inches='tight')
     plt.close()

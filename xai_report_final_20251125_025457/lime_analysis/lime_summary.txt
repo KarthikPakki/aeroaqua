@@ -1,0 +1,549 @@
+====================================================================================================
+LIME ANALYSIS SUMMARY - AWG Solar Prediction Model
+====================================================================================================
+
+Number of Examples Explained: 15
+Training Samples for LIME: 5000
+Features per Explanation: 7
+
+====================================================================================================
+EXAMPLE 1
+====================================================================================================
+Actual GHI:           0.00 W/m²
+Predicted GHI:        0.00 W/m²
+Error:                0.00 W/m²
+
+Feature Values:
+----------------------------------------------------------------------------------------------------
+  Cloud Type..............................      0.0   
+  Solar Zenith Angle......................    163.6  °
+  Relative Humidity.......................     55.8  %
+  Temperature.............................      0.8 °C
+  Month...................................     12.0   
+  Day.....................................     29.0   
+  Hour....................................      1.0   
+
+LIME Feature Contributions (Local Linear Model):
+----------------------------------------------------------------------------------------------------
+NOTE: LIME fits a simple linear model locally. Large contributions from minor features
+      (Month, Day, Hour) are usually statistical artifacts, not real physics.
+      Focus on Solar Zenith Angle and Cloud Type for physical interpretation.
+----------------------------------------------------------------------------------------------------
+  [MAJOR]    Solar Zenith Angle > 117.83............................  -262.58 ( 68.2%) decreases GHI
+  [MODERATE] Cloud Type=0...........................................    85.20 ( 22.1%) increases GHI
+  [MINOR]    Day > 23.00............................................   -14.09 (  3.7%) decreases GHI
+  [MINOR]    Month > 9.00...........................................     8.85 (  2.3%) increases GHI
+  [MINOR]    39.44 < Relative Humidity <= 64.00.....................     7.46 (  1.9%) increases GHI
+  [MINOR]    Temperature <= 4.90....................................     5.88 (  1.5%) increases GHI
+  [TINY]     Hour <= 6.00...........................................     1.09 (  0.3%) increases GHI
+
+Local Model Intercept: 221.75 W/m²
+Local Model Prediction: 53.56 W/m²
+
+====================================================================================================
+EXAMPLE 2
+====================================================================================================
+Actual GHI:           0.00 W/m²
+Predicted GHI:        0.00 W/m²
+Error:                0.00 W/m²
+
+Feature Values:
+----------------------------------------------------------------------------------------------------
+  Cloud Type..............................      4.0   
+  Solar Zenith Angle......................     97.5  °
+  Relative Humidity.......................     66.9  %
+  Temperature.............................    -12.7 °C
+  Month...................................     11.0   
+  Day.....................................     28.0   
+  Hour....................................      6.0   
+
+LIME Feature Contributions (Local Linear Model):
+----------------------------------------------------------------------------------------------------
+NOTE: LIME fits a simple linear model locally. Large contributions from minor features
+      (Month, Day, Hour) are usually statistical artifacts, not real physics.
+      Focus on Solar Zenith Angle and Cloud Type for physical interpretation.
+----------------------------------------------------------------------------------------------------
+  [MAJOR]    88.00 < Solar Zenith Angle <= 117.83...................  -262.50 ( 63.6%) decreases GHI
+  [MAJOR]    Cloud Type=4...........................................  -112.76 ( 27.3%) decreases GHI
+  [MINOR]    64.00 < Relative Humidity <= 86.11.....................   -15.26 (  3.7%) decreases GHI
+  [MINOR]    Month > 9.00...........................................    -9.31 (  2.3%) decreases GHI
+  [MINOR]    Day > 23.00............................................    -5.91 (  1.4%) decreases GHI
+  [MINOR]    Temperature <= 4.90....................................    -5.10 (  1.2%) decreases GHI
+  [TINY]     Hour <= 6.00...........................................     1.89 (  0.5%) increases GHI
+
+Local Model Intercept: 287.98 W/m²
+Local Model Prediction: -120.96 W/m²
+
+====================================================================================================
+EXAMPLE 3
+====================================================================================================
+Actual GHI:           0.00 W/m²
+Predicted GHI:        0.00 W/m²
+Error:                0.00 W/m²
+
+Feature Values:
+----------------------------------------------------------------------------------------------------
+  Cloud Type..............................      1.0   
+  Solar Zenith Angle......................     92.9  °
+  Relative Humidity.......................     67.2  %
+  Temperature.............................      2.8 °C
+  Month...................................      1.0   
+  Day.....................................     27.0   
+  Hour....................................      7.0   
+
+LIME Feature Contributions (Local Linear Model):
+----------------------------------------------------------------------------------------------------
+NOTE: LIME fits a simple linear model locally. Large contributions from minor features
+      (Month, Day, Hour) are usually statistical artifacts, not real physics.
+      Focus on Solar Zenith Angle and Cloud Type for physical interpretation.
+----------------------------------------------------------------------------------------------------
+  [MAJOR]    88.00 < Solar Zenith Angle <= 117.83...................  -257.72 ( 72.4%) decreases GHI
+  [MODERATE] Cloud Type=1...........................................    68.27 ( 19.2%) increases GHI
+  [MINOR]    Day > 23.00............................................    -9.63 (  2.7%) decreases GHI
+  [MINOR]    Temperature <= 4.90....................................    -7.01 (  2.0%) decreases GHI
+  [MINOR]    Month <= 3.00..........................................    -5.30 (  1.5%) decreases GHI
+  [TINY]     64.00 < Relative Humidity <= 86.11.....................    -4.52 (  1.3%) decreases GHI
+  [TINY]     6.00 < Hour <= 11.00...................................    -3.65 (  1.0%) decreases GHI
+
+Local Model Intercept: 257.92 W/m²
+Local Model Prediction: 38.37 W/m²
+
+====================================================================================================
+EXAMPLE 4
+====================================================================================================
+Actual GHI:           0.00 W/m²
+Predicted GHI:        0.00 W/m²
+Error:                0.00 W/m²
+
+Feature Values:
+----------------------------------------------------------------------------------------------------
+  Cloud Type..............................      1.0   
+  Solar Zenith Angle......................    121.3  °
+  Relative Humidity.......................     83.1  %
+  Temperature.............................     -3.6 °C
+  Month...................................      3.0   
+  Day.....................................      5.0   
+  Hour....................................      3.0   
+
+LIME Feature Contributions (Local Linear Model):
+----------------------------------------------------------------------------------------------------
+NOTE: LIME fits a simple linear model locally. Large contributions from minor features
+      (Month, Day, Hour) are usually statistical artifacts, not real physics.
+      Focus on Solar Zenith Angle and Cloud Type for physical interpretation.
+----------------------------------------------------------------------------------------------------
+  [MAJOR]    Solar Zenith Angle > 117.83............................  -265.27 ( 70.7%) decreases GHI
+  [MODERATE] Cloud Type=1...........................................    60.57 ( 16.1%) increases GHI
+  [MINOR]    Day <= 8.00............................................   -18.96 (  5.1%) decreases GHI
+  [MINOR]    64.00 < Relative Humidity <= 86.11.....................   -18.73 (  5.0%) decreases GHI
+  [MINOR]    Hour <= 6.00...........................................     7.56 (  2.0%) increases GHI
+  [TINY]     Temperature <= 4.90....................................    -3.85 (  1.0%) decreases GHI
+  [TINY]     Month <= 3.00..........................................     0.34 (  0.1%) increases GHI
+
+Local Model Intercept: 266.88 W/m²
+Local Model Prediction: 28.54 W/m²
+
+====================================================================================================
+EXAMPLE 5
+====================================================================================================
+Actual GHI:           0.00 W/m²
+Predicted GHI:        0.00 W/m²
+Error:                0.00 W/m²
+
+Feature Values:
+----------------------------------------------------------------------------------------------------
+  Cloud Type..............................      0.0   
+  Solar Zenith Angle......................    128.8  °
+  Relative Humidity.......................    100.0  %
+  Temperature.............................     -3.9 °C
+  Month...................................      4.0   
+  Day.....................................      9.0   
+  Hour....................................      1.0   
+
+LIME Feature Contributions (Local Linear Model):
+----------------------------------------------------------------------------------------------------
+NOTE: LIME fits a simple linear model locally. Large contributions from minor features
+      (Month, Day, Hour) are usually statistical artifacts, not real physics.
+      Focus on Solar Zenith Angle and Cloud Type for physical interpretation.
+----------------------------------------------------------------------------------------------------
+  [MAJOR]    Solar Zenith Angle > 117.83............................  -267.75 ( 58.0%) decreases GHI
+  [MAJOR]    Cloud Type=0...........................................   110.80 ( 24.0%) increases GHI
+  [MODERATE] Relative Humidity > 86.11..............................   -47.40 ( 10.3%) decreases GHI
+  [MINOR]    3.00 < Month <= 6.00...................................    14.58 (  3.2%) increases GHI
+  [MINOR]    Hour <= 6.00...........................................    10.71 (  2.3%) increases GHI
+  [MINOR]    8.00 < Day <= 16.00....................................    -8.04 (  1.7%) decreases GHI
+  [TINY]     Temperature <= 4.90....................................     2.68 (  0.6%) increases GHI
+
+Local Model Intercept: 228.85 W/m²
+Local Model Prediction: 44.42 W/m²
+
+====================================================================================================
+EXAMPLE 6
+====================================================================================================
+Actual GHI:           0.00 W/m²
+Predicted GHI:        0.00 W/m²
+Error:                0.00 W/m²
+
+Feature Values:
+----------------------------------------------------------------------------------------------------
+  Cloud Type..............................      0.0   
+  Solar Zenith Angle......................    100.3  °
+  Relative Humidity.......................     68.1  %
+  Temperature.............................      8.0 °C
+  Month...................................      4.0   
+  Day.....................................      8.0   
+  Hour....................................     19.0   
+
+LIME Feature Contributions (Local Linear Model):
+----------------------------------------------------------------------------------------------------
+NOTE: LIME fits a simple linear model locally. Large contributions from minor features
+      (Month, Day, Hour) are usually statistical artifacts, not real physics.
+      Focus on Solar Zenith Angle and Cloud Type for physical interpretation.
+----------------------------------------------------------------------------------------------------
+  [MAJOR]    88.00 < Solar Zenith Angle <= 117.83...................  -267.31 ( 64.7%) decreases GHI
+  [MODERATE] Cloud Type=0...........................................    99.17 ( 24.0%) increases GHI
+  [MODERATE] Hour > 17.00...........................................    21.67 (  5.2%) increases GHI
+  [MINOR]    64.00 < Relative Humidity <= 86.11.....................   -13.09 (  3.2%) decreases GHI
+  [MINOR]    Day <= 8.00............................................    -5.46 (  1.3%) decreases GHI
+  [TINY]     3.00 < Month <= 6.00...................................     4.14 (  1.0%) increases GHI
+  [TINY]     4.90 < Temperature <= 14.80............................    -2.21 (  0.5%) decreases GHI
+
+Local Model Intercept: 223.71 W/m²
+Local Model Prediction: 60.62 W/m²
+
+====================================================================================================
+EXAMPLE 7
+====================================================================================================
+Actual GHI:           0.00 W/m²
+Predicted GHI:        0.00 W/m²
+Error:                0.00 W/m²
+
+Feature Values:
+----------------------------------------------------------------------------------------------------
+  Cloud Type..............................      3.0   
+  Solar Zenith Angle......................    112.3  °
+  Relative Humidity.......................     82.5  %
+  Temperature.............................     27.4 °C
+  Month...................................      8.0   
+  Day.....................................      6.0   
+  Hour....................................     20.0   
+
+LIME Feature Contributions (Local Linear Model):
+----------------------------------------------------------------------------------------------------
+NOTE: LIME fits a simple linear model locally. Large contributions from minor features
+      (Month, Day, Hour) are usually statistical artifacts, not real physics.
+      Focus on Solar Zenith Angle and Cloud Type for physical interpretation.
+----------------------------------------------------------------------------------------------------
+  [MAJOR]    88.00 < Solar Zenith Angle <= 117.83...................  -259.24 ( 68.8%) decreases GHI
+  [MODERATE] Cloud Type=3...........................................   -54.02 ( 14.3%) decreases GHI
+  [MINOR]    64.00 < Relative Humidity <= 86.11.....................   -15.89 (  4.2%) decreases GHI
+  [MINOR]    Temperature > 23.40....................................   -15.06 (  4.0%) decreases GHI
+  [MINOR]    Day <= 8.00............................................    12.82 (  3.4%) increases GHI
+  [MINOR]    6.00 < Month <= 9.00...................................   -10.50 (  2.8%) decreases GHI
+  [MINOR]    Hour > 17.00...........................................    -9.05 (  2.4%) decreases GHI
+
+Local Model Intercept: 273.88 W/m²
+Local Model Prediction: -77.06 W/m²
+
+====================================================================================================
+EXAMPLE 8
+====================================================================================================
+Actual GHI:           0.00 W/m²
+Predicted GHI:        0.00 W/m²
+Error:                0.00 W/m²
+
+Feature Values:
+----------------------------------------------------------------------------------------------------
+  Cloud Type..............................      1.0   
+  Solar Zenith Angle......................    103.8  °
+  Relative Humidity.......................     50.6  %
+  Temperature.............................     25.2 °C
+  Month...................................      7.0   
+  Day.....................................      6.0   
+  Hour....................................     21.0   
+
+LIME Feature Contributions (Local Linear Model):
+----------------------------------------------------------------------------------------------------
+NOTE: LIME fits a simple linear model locally. Large contributions from minor features
+      (Month, Day, Hour) are usually statistical artifacts, not real physics.
+      Focus on Solar Zenith Angle and Cloud Type for physical interpretation.
+----------------------------------------------------------------------------------------------------
+  [MAJOR]    88.00 < Solar Zenith Angle <= 117.83...................  -255.84 ( 69.9%) decreases GHI
+  [MODERATE] Cloud Type=1...........................................    72.20 ( 19.7%) increases GHI
+  [MODERATE] 39.44 < Relative Humidity <= 64.00.....................    22.97 (  6.3%) increases GHI
+  [MINOR]    Hour > 17.00...........................................    -5.28 (  1.4%) decreases GHI
+  [TINY]     Day <= 8.00............................................     3.64 (  1.0%) increases GHI
+  [TINY]     Temperature > 23.40....................................    -3.12 (  0.9%) decreases GHI
+  [TINY]     6.00 < Month <= 9.00...................................    -2.96 (  0.8%) decreases GHI
+
+Local Model Intercept: 243.50 W/m²
+Local Model Prediction: 75.10 W/m²
+
+====================================================================================================
+EXAMPLE 9
+====================================================================================================
+Actual GHI:          47.00 W/m²
+Predicted GHI:      204.52 W/m²
+Error:              157.52 W/m²
+
+Feature Values:
+----------------------------------------------------------------------------------------------------
+  Cloud Type..............................      7.0   
+  Solar Zenith Angle......................     39.2  °
+  Relative Humidity.......................     93.0  %
+  Temperature.............................     20.2 °C
+  Month...................................      6.0   
+  Day.....................................     19.0   
+  Hour....................................      9.0   
+
+LIME Feature Contributions (Local Linear Model):
+----------------------------------------------------------------------------------------------------
+NOTE: LIME fits a simple linear model locally. Large contributions from minor features
+      (Month, Day, Hour) are usually statistical artifacts, not real physics.
+      Focus on Solar Zenith Angle and Cloud Type for physical interpretation.
+----------------------------------------------------------------------------------------------------
+  [MAJOR]    Solar Zenith Angle <= 59.40............................   509.98 ( 80.0%) increases GHI
+  [MODERATE] Cloud Type=7...........................................   -65.76 ( 10.3%) decreases GHI
+  [MODERATE] Relative Humidity > 86.11..............................   -45.19 (  7.1%) decreases GHI
+  [MINOR]    6.00 < Hour <= 11.00...................................    -6.16 (  1.0%) decreases GHI
+  [MINOR]    16.00 < Day <= 23.00...................................     5.89 (  0.9%) increases GHI
+  [TINY]     14.80 < Temperature <= 23.40...........................     2.46 (  0.4%) increases GHI
+  [TINY]     3.00 < Month <= 6.00...................................    -2.04 (  0.3%) decreases GHI
+
+Local Model Intercept: 88.96 W/m²
+Local Model Prediction: 488.13 W/m²
+
+====================================================================================================
+EXAMPLE 10
+====================================================================================================
+Actual GHI:         124.00 W/m²
+Predicted GHI:      158.15 W/m²
+Error:               34.15 W/m²
+
+Feature Values:
+----------------------------------------------------------------------------------------------------
+  Cloud Type..............................      4.0   
+  Solar Zenith Angle......................     68.4  °
+  Relative Humidity.......................     60.0  %
+  Temperature.............................      2.5 °C
+  Month...................................      3.0   
+  Day.....................................     25.0   
+  Hour....................................      8.0   
+
+LIME Feature Contributions (Local Linear Model):
+----------------------------------------------------------------------------------------------------
+NOTE: LIME fits a simple linear model locally. Large contributions from minor features
+      (Month, Day, Hour) are usually statistical artifacts, not real physics.
+      Focus on Solar Zenith Angle and Cloud Type for physical interpretation.
+----------------------------------------------------------------------------------------------------
+  [MAJOR]    Cloud Type=4...........................................  -103.16 ( 62.1%) decreases GHI
+  [MINOR]    Month <= 3.00..........................................    13.48 (  8.1%) increases GHI
+  [MINOR]    59.40 < Solar Zenith Angle <= 88.00....................   -12.05 (  7.3%) decreases GHI
+  [MINOR]    Day > 23.00............................................   -11.79 (  7.1%) decreases GHI
+  [MINOR]    39.44 < Relative Humidity <= 64.00.....................    10.85 (  6.5%) increases GHI
+  [MINOR]    6.00 < Hour <= 11.00...................................    -8.72 (  5.3%) decreases GHI
+  [MINOR]    Temperature <= 4.90....................................     6.00 (  3.6%) increases GHI
+
+Local Model Intercept: 209.90 W/m²
+Local Model Prediction: 104.49 W/m²
+
+====================================================================================================
+EXAMPLE 11
+====================================================================================================
+Actual GHI:         227.00 W/m²
+Predicted GHI:      187.43 W/m²
+Error:              -39.57 W/m²
+
+Feature Values:
+----------------------------------------------------------------------------------------------------
+  Cloud Type..............................      4.0   
+  Solar Zenith Angle......................     22.5  °
+  Relative Humidity.......................     93.6  %
+  Temperature.............................     19.3 °C
+  Month...................................      7.0   
+  Day.....................................     22.0   
+  Hour....................................     12.0   
+
+LIME Feature Contributions (Local Linear Model):
+----------------------------------------------------------------------------------------------------
+NOTE: LIME fits a simple linear model locally. Large contributions from minor features
+      (Month, Day, Hour) are usually statistical artifacts, not real physics.
+      Focus on Solar Zenith Angle and Cloud Type for physical interpretation.
+----------------------------------------------------------------------------------------------------
+  [MAJOR]    Solar Zenith Angle <= 59.40............................   518.58 ( 76.0%) increases GHI
+  [MAJOR]    Cloud Type=4...........................................  -112.52 ( 16.5%) decreases GHI
+  [MODERATE] Relative Humidity > 86.11..............................   -36.88 (  5.4%) decreases GHI
+  [MINOR]    6.00 < Month <= 9.00...................................    -9.19 (  1.3%) decreases GHI
+  [TINY]     14.80 < Temperature <= 23.40...........................     3.37 (  0.5%) increases GHI
+  [TINY]     11.00 < Hour <= 17.00..................................     0.90 (  0.1%) increases GHI
+  [TINY]     16.00 < Day <= 23.00...................................    -0.63 (  0.1%) decreases GHI
+
+Local Model Intercept: 92.19 W/m²
+Local Model Prediction: 455.82 W/m²
+
+====================================================================================================
+EXAMPLE 12
+====================================================================================================
+Actual GHI:         347.00 W/m²
+Predicted GHI:      349.74 W/m²
+Error:                2.74 W/m²
+
+Feature Values:
+----------------------------------------------------------------------------------------------------
+  Cloud Type..............................      0.0   
+  Solar Zenith Angle......................     69.3  °
+  Relative Humidity.......................     57.8  %
+  Temperature.............................      9.5 °C
+  Month...................................      1.0   
+  Day.....................................      7.0   
+  Hour....................................     15.0   
+
+LIME Feature Contributions (Local Linear Model):
+----------------------------------------------------------------------------------------------------
+NOTE: LIME fits a simple linear model locally. Large contributions from minor features
+      (Month, Day, Hour) are usually statistical artifacts, not real physics.
+      Focus on Solar Zenith Angle and Cloud Type for physical interpretation.
+----------------------------------------------------------------------------------------------------
+  [MAJOR]    Cloud Type=0...........................................   114.85 ( 59.7%) increases GHI
+  [MINOR]    39.44 < Relative Humidity <= 64.00.....................    18.67 (  9.7%) increases GHI
+  [MINOR]    11.00 < Hour <= 17.00..................................   -17.93 (  9.3%) decreases GHI
+  [MINOR]    4.90 < Temperature <= 14.80............................    16.17 (  8.4%) increases GHI
+  [MINOR]    Month <= 3.00..........................................    10.42 (  5.4%) increases GHI
+  [MINOR]    59.40 < Solar Zenith Angle <= 88.00....................     8.88 (  4.6%) increases GHI
+  [MINOR]    Day <= 8.00............................................     5.42 (  2.8%) increases GHI
+
+Local Model Intercept: 133.18 W/m²
+Local Model Prediction: 289.66 W/m²
+
+====================================================================================================
+EXAMPLE 13
+====================================================================================================
+Actual GHI:         486.00 W/m²
+Predicted GHI:      336.63 W/m²
+Error:             -149.37 W/m²
+
+Feature Values:
+----------------------------------------------------------------------------------------------------
+  Cloud Type..............................      4.0   
+  Solar Zenith Angle......................     26.8  °
+  Relative Humidity.......................     79.9  %
+  Temperature.............................     26.2 °C
+  Month...................................      9.0   
+  Day.....................................      7.0   
+  Hour....................................     11.0   
+
+LIME Feature Contributions (Local Linear Model):
+----------------------------------------------------------------------------------------------------
+NOTE: LIME fits a simple linear model locally. Large contributions from minor features
+      (Month, Day, Hour) are usually statistical artifacts, not real physics.
+      Focus on Solar Zenith Angle and Cloud Type for physical interpretation.
+----------------------------------------------------------------------------------------------------
+  [MAJOR]    Solar Zenith Angle <= 59.40............................   517.22 ( 75.9%) increases GHI
+  [MAJOR]    Cloud Type=4...........................................  -117.75 ( 17.3%) decreases GHI
+  [MINOR]    64.00 < Relative Humidity <= 86.11.....................   -19.62 (  2.9%) decreases GHI
+  [MINOR]    Temperature > 23.40....................................   -13.38 (  2.0%) decreases GHI
+  [MINOR]    6.00 < Hour <= 11.00...................................     7.82 (  1.1%) increases GHI
+  [TINY]     Day <= 8.00............................................     4.00 (  0.6%) increases GHI
+  [TINY]     6.00 < Month <= 9.00...................................     1.36 (  0.2%) increases GHI
+
+Local Model Intercept: 88.02 W/m²
+Local Model Prediction: 467.66 W/m²
+
+====================================================================================================
+EXAMPLE 14
+====================================================================================================
+Actual GHI:         632.00 W/m²
+Predicted GHI:      631.57 W/m²
+Error:               -0.43 W/m²
+
+Feature Values:
+----------------------------------------------------------------------------------------------------
+  Cloud Type..............................      0.0   
+  Solar Zenith Angle......................     53.9  °
+  Relative Humidity.......................     60.8  %
+  Temperature.............................     17.7 °C
+  Month...................................      1.0   
+  Day.....................................      5.0   
+  Hour....................................     12.0   
+
+LIME Feature Contributions (Local Linear Model):
+----------------------------------------------------------------------------------------------------
+NOTE: LIME fits a simple linear model locally. Large contributions from minor features
+      (Month, Day, Hour) are usually statistical artifacts, not real physics.
+      Focus on Solar Zenith Angle and Cloud Type for physical interpretation.
+----------------------------------------------------------------------------------------------------
+  [MAJOR]    Solar Zenith Angle <= 59.40............................   532.39 ( 78.0%) increases GHI
+  [MAJOR]    Cloud Type=0...........................................   112.56 ( 16.5%) increases GHI
+  [MINOR]    39.44 < Relative Humidity <= 64.00.....................    13.94 (  2.0%) increases GHI
+  [MINOR]    11.00 < Hour <= 17.00..................................     8.52 (  1.2%) increases GHI
+  [MINOR]    Day <= 8.00............................................    -7.14 (  1.0%) decreases GHI
+  [MINOR]    Month <= 3.00..........................................     5.87 (  0.9%) increases GHI
+  [TINY]     14.80 < Temperature <= 23.40...........................     1.93 (  0.3%) increases GHI
+
+Local Model Intercept: 10.61 W/m²
+Local Model Prediction: 678.68 W/m²
+
+====================================================================================================
+EXAMPLE 15
+====================================================================================================
+Actual GHI:         802.00 W/m²
+Predicted GHI:      802.84 W/m²
+Error:                0.84 W/m²
+
+Feature Values:
+----------------------------------------------------------------------------------------------------
+  Cloud Type..............................      0.0   
+  Solar Zenith Angle......................     38.4  °
+  Relative Humidity.......................     19.8  %
+  Temperature.............................     34.0 °C
+  Month...................................      8.0   
+  Day.....................................     24.0   
+  Hour....................................     10.0   
+
+LIME Feature Contributions (Local Linear Model):
+----------------------------------------------------------------------------------------------------
+NOTE: LIME fits a simple linear model locally. Large contributions from minor features
+      (Month, Day, Hour) are usually statistical artifacts, not real physics.
+      Focus on Solar Zenith Angle and Cloud Type for physical interpretation.
+----------------------------------------------------------------------------------------------------
+  [MAJOR]    Solar Zenith Angle <= 59.40............................   538.01 ( 76.5%) increases GHI
+  [MAJOR]    Cloud Type=0...........................................   104.62 ( 14.9%) increases GHI
+  [MODERATE] Relative Humidity <= 39.44.............................    33.46 (  4.8%) increases GHI
+  [MINOR]    6.00 < Month <= 9.00...................................    -8.70 (  1.2%) decreases GHI
+  [MINOR]    6.00 < Hour <= 11.00...................................    -8.59 (  1.2%) decreases GHI
+  [MINOR]    Temperature > 23.40....................................    -6.30 (  0.9%) decreases GHI
+  [TINY]     Day > 23.00............................................    -3.45 (  0.5%) decreases GHI
+
+Local Model Intercept: 21.51 W/m²
+Local Model Prediction: 670.56 W/m²
+
+====================================================================================================
+INTERPRETATION GUIDE:
+====================================================================================================
+LIME creates a simple linear model locally around each prediction.
+
+How to read the results:
+- [MAJOR] = Contribution > 100 W/m² (dominant factor)
+- [MODERATE] = Contribution 20-100 W/m² (secondary factor)
+- [MINOR] = Contribution 5-20 W/m² (small effect)
+- [TINY] = Contribution < 5 W/m² (negligible, likely noise)
+
+- Percentage shows relative contribution to the prediction
+- Positive values: Feature increases predicted GHI
+- Negative values: Feature decreases predicted GHI
+- The feature ranges shown (e.g., '50 < Temp <= 70') indicate the value bin
+- Local model is only valid near the specific prediction being explained
+
+IMPORTANT - Understanding LIME Artifacts:
+----------------------------------------------------------------------------------------------------
+LIME fits a LINEAR approximation in a small neighborhood. This can cause:
+- Minor features (Month, Day, Hour) sometimes showing large contributions
+- These are usually STATISTICAL ARTIFACTS, not real physical effects
+- The model itself doesn't heavily use these features (see SHAP importance)
+- Focus on Solar Zenith Angle and Cloud Type for physical interpretation
+
+Key differences from SHAP:
+- LIME uses local linear approximation (SHAP uses exact game theory)
+- LIME is faster but less precise and can have artifacts
+- LIME explanations are easier for non-technical stakeholders
+- LIME can vary between runs (uses sampling), SHAP is deterministic
+- Use SHAP for accurate feature importance, LIME for quick local explanations
