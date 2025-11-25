@@ -1,0 +1,154 @@
+====================================================================================================
+SHAP vs LIME: Complete Comparison Guide for AWG Solar Prediction Model
+====================================================================================================
+
+WHAT IS EXPLAINABLE AI (XAI)?
+----------------------------------------------------------------------------------------------------
+Explainable AI helps us understand WHY a machine learning model makes certain predictions.
+For our AWG system, XAI answers questions like:
+  • Why did the model predict low solar energy on a particular day?
+  • Which weather conditions have the biggest impact on water yield?
+  • Can we trust the model's predictions for operational decisions?
+
+WHY DO WE NEED XAI?
+----------------------------------------------------------------------------------------------------
+1. Trust: Understand and validate model behavior before deployment
+2. Debugging: Identify if model learned correct patterns or biases
+3. Insights: Discover which weather conditions matter most
+4. Compliance: Explain predictions to stakeholders/regulators
+5. Improvement: Guide feature engineering and data collection
+
+====================================================================================================
+SHAP (SHapley Additive exPlanations)
+====================================================================================================
+
+What it is:
+----------------------------------------------------------------------------------------------------
+SHAP uses game theory (Shapley values from cooperative game theory) to fairly
+distribute prediction 'credit' among features. It computes the exact contribution
+of each feature to every prediction.
+
+How it works:
+----------------------------------------------------------------------------------------------------
+1. Takes a prediction (e.g., GHI = 650 W/m²)
+2. Compares to baseline (average prediction across all data)
+3. Calculates how much each feature pushed prediction up or down
+4. Guarantees contributions sum to total prediction difference
+
+Strengths:
+----------------------------------------------------------------------------------------------------
++ Mathematically rigorous (based on Shapley values)
++ Consistent - same input always gives same explanation
++ Exact for tree-based models (Random Forest)
++ Captures feature interactions well
++ Provides both global (all predictions) and local (single prediction) explanations
+
+Weaknesses:
+----------------------------------------------------------------------------------------------------
+- Can be slow for large datasets
+- Requires some technical knowledge to interpret
+- Visualizations can be complex for non-technical audiences
+
+Best for:
+----------------------------------------------------------------------------------------------------
+• Technical team analysis
+• Understanding overall feature importance
+• Validating model learned correct patterns
+• Scientific publications or technical reports
+• When you need exact, reproducible explanations
+
+====================================================================================================
+LIME (Local Interpretable Model-agnostic Explanations)
+====================================================================================================
+
+What it is:
+----------------------------------------------------------------------------------------------------
+LIME explains individual predictions by fitting a simple, interpretable model
+(linear regression) locally around the prediction you want to explain.
+
+How it works:
+----------------------------------------------------------------------------------------------------
+1. Takes a prediction you want to explain
+2. Creates many similar 'synthetic' examples by perturbing features
+3. Gets model predictions for these synthetic examples
+4. Fits a simple linear model to approximate behavior in that local region
+5. Linear model coefficients = feature importance for that prediction
+
+Strengths:
+----------------------------------------------------------------------------------------------------
++ Fast - uses sampling instead of exact computation
++ Easy to understand - simple linear relationships
++ Model-agnostic - works with any black-box model
++ Great for explaining specific predictions to stakeholders
++ Intuitive visualizations
+
+Weaknesses:
+----------------------------------------------------------------------------------------------------
+- Approximate - uses local linear model, not exact
+- Can vary between runs (uses random sampling)
+- Only explains local behavior, not global patterns
+- Linear assumption may miss complex interactions
+- Needs careful tuning of number of samples
+
+Best for:
+----------------------------------------------------------------------------------------------------
+• Explaining specific predictions to non-technical stakeholders
+• 'Why did the model predict X for this particular day?' questions
+• Quick exploratory analysis
+• Presentations and demos
+• When speed is more important than exactness
+
+====================================================================================================
+PRACTICAL GUIDE FOR YOUR TEAM
+====================================================================================================
+
+Use SHAP when:
+----------------------------------------------------------------------------------------------------
+1. Analyzing which features are most important overall
+2. Validating the model learned correct physical relationships
+   (e.g., solar zenith angle should have strong impact)
+3. Writing technical documentation or papers
+4. Debugging unexpected model behavior
+5. Comparing feature importance across different model versions
+
+Use LIME when:
+----------------------------------------------------------------------------------------------------
+1. Explaining a specific prediction to management/customers
+2. Investigating anomalous predictions (outliers)
+3. Creating simple, intuitive visualizations for presentations
+4. Quick exploratory analysis during development
+5. Demonstrating model behavior to non-technical stakeholders
+
+Example Questions and Which Tool to Use:
+----------------------------------------------------------------------------------------------------
+Q: 'What weather factors matter most for our AWG system?'
+A: Use SHAP - provides global feature importance across all predictions
+
+Q: 'Why did we get low water yield on June 15th?'
+A: Use LIME - explains that specific prediction in simple terms
+
+Q: 'Does the model correctly account for humidity effects?'
+A: Use SHAP - can validate feature relationships match physics
+
+Q: 'Can you explain this prediction to our investors?'
+A: Use LIME - provides intuitive, easy-to-understand explanations
+
+Q: 'Which features should we monitor most carefully in production?'
+A: Use SHAP - identifies most influential features globally
+
+====================================================================================================
+RECOMMENDATION: Use Both!
+====================================================================================================
+SHAP and LIME are complementary, not competing tools.
+
+Workflow:
+1. Run SHAP first for comprehensive feature importance analysis
+2. Use SHAP results to validate model and identify key features
+3. Run LIME for specific predictions you need to explain
+4. Use SHAP for technical documentation, LIME for presentations
+
+For your AWG model:
+• SHAP helps engineers understand and improve the system
+• LIME helps explain predictions to operations/business teams
+• Together, they provide complete explainability coverage
+

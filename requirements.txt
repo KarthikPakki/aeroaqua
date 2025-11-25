@@ -3,3 +3,6 @@ pvlib>=0.9
 scikit-learn>=1.0
 joblib
 numpy
+matplotlib
+shap>=0.41.0
+lime>=0.2.0

@@ -1,0 +1,33 @@
+================================================================================
+SHAP ANALYSIS SUMMARY - AWG Solar Prediction Model
+================================================================================
+
+Base Value (Expected prediction): 197.85 W/m²
+Samples Analyzed: 2,000
+
+FEATURE IMPORTANCE (Mean |SHAP value|):
+--------------------------------------------------------------------------------
+Solar Zenith Angle......................     218.10
+Cloud Type..............................      53.92
+Relative Humidity.......................      18.63
+Temperature.............................       5.02
+Month...................................       2.08
+Day.....................................       1.33
+Hour....................................       1.18
+
+================================================================================
+INTERPRETATION GUIDE:
+================================================================================
+- Base value: Average model prediction across all training data
+- SHAP values: How much each feature pushes prediction up/down from base
+- Positive SHAP: Feature increases predicted GHI
+- Negative SHAP: Feature decreases predicted GHI
+- Feature importance: Average magnitude of impact across all predictions
+
+VISUALIZATION GUIDE:
+--------------------------------------------------------------------------------
+1. Feature Importance Bar: Which features matter most overall
+2. Beeswarm Plot: Distribution of feature impacts (color = feature value)
+3. Dependence Plots: How feature values affect predictions
+4. Waterfall Plots: Step-by-step explanation of individual predictions
+5. Force Plot: Visual breakdown of a single prediction
